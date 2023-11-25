@@ -27,6 +27,8 @@ mongoose
 
 // endpoint to register an employee
   app.use('/api/employees', employeeRouter)
+  ap.use('/api/addEmployee', employeeRouter)
+  app.use('/api/attendances', employeeRouter)
 
 
 

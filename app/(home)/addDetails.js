@@ -1,14 +1,63 @@
-import { ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
-import React from "react";
+import {
+  Alert,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
+import React, { useState } from "react";
+import axios from "axios";
 
 const addDetails = () => {
+  const [name, setName] = useState("");
+  const [employeeId, setEmployeeId] = useState("");
+  const [dob, setDob] = useState("");
+  const [mobileNo, setMobileNo] = useState("");
+  const [joiningDate, setJoiningDate] = useState("");
+  const [salary, setSalary] = useState("");
+  const [address, setAddress] = useState("");
+  const [designation, setDesignation] = useState("");
+
+  const handleRegister = () => {
+    const employeeData = {
+      employeeName: name,
+      employeeId: employeeId,
+      designation: designation,
+      phoneNumber: mobileNo,
+      dateOfBirth: dob,
+      joiningDate: joiningDate,
+      activeEmployee: true,
+      salary: salary,
+      address: salary,
+    };
+    axios
+      .post("http://localhost:3000/addEmployee", employeeData)
+      .then((response) => {
+        Alert.alert(
+          "Registration Successful",
+          "You have registered successfully"
+        );
+        setName("");
+        setEmployeeId("");
+        setDob("")
+        setMobileNo("");
+        setSalary("");
+        setAddress("");
+        setJoiningDate("");
+        setDesignation("");
+      }).catch((error)=>{
+        Alert.alert("Registration fail, an error occured durin registration")
+        console.log("Registration has failed:", error)
+      });
+  };
   return (
     <ScrollView style={{ flex: 1, backgroundColor: "white" }}>
       <View style={{ padding: 10 }}>
         <Text style={{ fontSize: 17, fontWeight: "bold" }}>
           Add a New Employee
         </Text>
-
         <TextInput
           style={{
             padding: 10,
@@ -20,12 +69,14 @@ const addDetails = () => {
           placeholder="Nairobi"
           placeholderTextColor={"black"}
         />
-      <View style={{ marginVertical: 10 }}>
-        <Text style={{ fontSize: 17, fontWeight: "bold" }}>
-          Full Name(First and last Name)
-        </Text>
-        <TextInput
-          style={{
+        <View style={{ marginVertical: 10 }}>
+          <Text style={{ fontSize: 17, fontWeight: "bold" }}>
+            Full Name(First and last Name)
+          </Text>
+          <TextInput
+            value={name}
+            onChangeText={(text) => setName(text)}
+            style={{
               padding: 10,
               borderColor: "#d0d0d0",
               borderWidth: 1,
@@ -33,15 +84,15 @@ const addDetails = () => {
               borderRadius: 5,
             }}
             placeholder="enter your name"
-          placeholderTextColor={"black"}
+            placeholderTextColor={"black"}
           />
-          </View>
-          <View>
-        <Text style={{ fontSize: 17, fontWeight: "bold" }}>
-          Employee Id
-        </Text>
-        <TextInput
-          style={{
+        </View>
+        <View>
+          <Text style={{ fontSize: 17, fontWeight: "bold" }}>Employee Id</Text>
+          <TextInput
+            value={employeeId}
+            onChangeText={(text) => setEmployeeId(text)}
+            style={{
               padding: 10,
               borderColor: "#d0d0d0",
               borderWidth: 1,
@@ -49,16 +100,15 @@ const addDetails = () => {
               borderRadius: 5,
             }}
             placeholder="Employee id"
-          placeholderTextColor={"black"}
+            placeholderTextColor={"black"}
           />
-          </View>
-
-          <View style={{ marginVertical: 10 }}>
-        <Text style={{ fontSize: 17, fontWeight: "bold" }}>
-          Designation
-        </Text>
-        <TextInput
-          style={{
+        </View>
+        <View style={{ marginVertical: 10 }}>
+          <Text style={{ fontSize: 17, fontWeight: "bold" }}>Designation</Text>
+          <TextInput
+            value={designation}
+            onChangeText={(text) => setDesignation(text)}
+            style={{
               padding: 10,
               borderColor: "#d0d0d0",
               borderWidth: 1,
@@ -66,16 +116,17 @@ const addDetails = () => {
               borderRadius: 5,
             }}
             placeholder="Designation"
-          placeholderTextColor={"black"}
+            placeholderTextColor={"black"}
           />
         </View>
-
         <View>
-        <Text style={{ fontSize: 17, fontWeight: "bold" }}>
-          Mobile Number
-        </Text>
-        <TextInput
-          style={{
+          <Text style={{ fontSize: 17, fontWeight: "bold" }}>
+            Mobile Number
+          </Text>
+          <TextInput
+            value={mobileNo}
+            onChangeText={(text) => setMobileNo(text)}
+            style={{
               padding: 10,
               borderColor: "#d0d0d0",
               borderWidth: 1,
@@ -83,16 +134,17 @@ const addDetails = () => {
               borderRadius: 5,
             }}
             placeholder="Mobile No"
-          placeholderTextColor={"black"}
+            placeholderTextColor={"black"}
           />
-          </View>
-
-          <View style={{marginVertical:10}}>
-        <Text style={{ fontSize: 17, fontWeight: "bold" }}>
-          Date of Birth
-        </Text>
-        <TextInput
-          style={{
+        </View>
+        <View style={{ marginVertical: 10 }}>
+          <Text style={{ fontSize: 17, fontWeight: "bold" }}>
+            Date of Birth
+          </Text>
+          <TextInput
+            value={dob}
+            onChangeText={(text) => setDob(text)}
+            style={{
               padding: 10,
               borderColor: "#d0d0d0",
               borderWidth: 1,
@@ -100,32 +152,85 @@ const addDetails = () => {
               borderRadius: 5,
             }}
             placeholder="Enter Date of Birth"
-          placeholderTextColor={"black"}
+            placeholderTextColor={"black"}
           />
-          </View>
-
-          <View>
-        <Text style={{ fontSize: 17, fontWeight: "bold" }}>
-          Joining Date
-        </Text>
-        <TextInput
-          style={{
+        </View>
+    
+        <View>
+          <Text style={{ fontSize: 17, fontWeight: "bold" }}>Joining Date</Text>
+          <TextInput
+            value={joiningDate}
+            onChangeText={(text) => setJoiningDate(text)}
+            style={{
               padding: 10,
               borderColor: "#d0d0d0",
               borderWidth: 1,
               marginTop: 10,
-              borderRadius: 5,
+              // borderRadius: 5,
             }}
             placeholder="Joining Date"
-          placeholderTextColor={"black"}
+            placeholderTextColor={"black"}
           />
-          </View>
-
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+            marginTop: 10,
+          }}
+        >
+          <Text>Active Employee</Text>
+          <Text>True</Text>
+        </View>
+        <View style={{ marginVertical: 10 }}>
+          <Text style={{ fontSize: 17, fontWeight: "bold" }}>Salary</Text>
+          <TextInput
+            value={salary}
+            onChangeText={(text) => setSalary(text)}
+            style={{
+              padding: 10,
+              borderColor: "#d0d0d0",
+              borderWidth: 1,
+              marginTop: 10,
+              // borderRadius: 5,
+            }}
+            placeholder="Enter salary"
+            placeholderTextColor={"black"}
+          />
+        </View>
+        <View>
+          <Text style={{ fontSize: 17, fontWeight: "bold" }}>Address</Text>
+          <TextInput
+            value={address}
+            onChangeText={(text) => setAddress(text)}
+            style={{
+              padding: 10,
+              borderColor: "#d0d0d0",
+              borderWidth: 1,
+              marginTop: 10,
+              // borderRadius: 5,
+            }}
+            placeholder="Enter Address"
+            placeholderTextColor={"black"}
+          />
+        </View>
+        <Pressable
+          onPress={handleRegister}
+          style={{
+            backgroundColor: "#a620b0",
+            padding: 10,
+            marginTop: 20,
+            borderRadius: 5,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Text style={{ fontWeight: "bold", color: "white" }}>
+            Add Employee
+          </Text>
+        </Pressable>
       </View>
-          <View style={{flex:'row'}}>
-            <Text>Active Employee</Text>
-            <Text>True</Text>
-          </View>
     </ScrollView>
   );
 };

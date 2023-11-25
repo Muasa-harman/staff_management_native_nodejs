@@ -4,6 +4,7 @@ import axios from "axios";
 import { Ionicons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { router, useRouter } from "expo-router";
+import SearchResults from "../../components/SearchResults";
 
 const employees = () => {
   const [employees, setEmployees] = useState([2]);
@@ -19,7 +20,7 @@ const employees = () => {
         console.log("error fetching employee data", error);
       }
     };
-    // fetchEmployeeData();
+    fetchEmployeeData();
   }, []);
   console.log(employees);
   return (
@@ -66,11 +67,24 @@ const employees = () => {
           )}
         </Pressable>
       </View>
-      <Pressable>
-        <Pressable onPress={() => router.push("/(home)/addDetails")}>
-          <AntDesign name="pluscircle" size={24} color="#9c4f72" />
-        </Pressable>
-      </Pressable>
+      {employees.length > 0 ? (
+        <SearchResults data={employees} input={input} setInput={setInput} />
+      ) : (
+        <View
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
+          <Text>No Data</Text>
+          <Text>Press on the plus button and add your Employee</Text>
+          <Pressable onPress={() => router.push("/(home)/addDetails")}>
+            <AntDesign
+              style={{ marginTop: 30 }}
+              name="pluscircle"
+              size={24}
+              color="#9c4f72"
+            />
+          </Pressable>
+        </View>
+      )}
     </View>
   );
 };
