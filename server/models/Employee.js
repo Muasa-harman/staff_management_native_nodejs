@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-const employeeSchema = new mongoose.Schema({
+const EmployeeSchema = new mongoose.Schema({
     employeeId: {
         type: String,
         required: true,
@@ -44,7 +44,6 @@ const employeeSchema = new mongoose.Schema({
     }
 })
 
-// module.exports = mongoose.model('Employee', EmployeeSchema);
-const Employee = mongoose.model('Employee', employeeSchema);
-module.exports = Employee
+const Employee = mongoose.model('Employee', EmployeeSchema);
+export default  Employee;
 

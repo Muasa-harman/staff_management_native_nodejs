@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-const registerSchema = new mongoose.Schema({
+const RegisterSchema = new mongoose.Schema({
     username: {
         type: String,
         required: true
@@ -15,6 +15,6 @@ const registerSchema = new mongoose.Schema({
     }        
 })
 
-const Register = mongoose.Schema('Register', registerSchema)
+const Register = mongoose.Schema('Register', RegisterSchema)
 
-module.exports = Register
+export default Register

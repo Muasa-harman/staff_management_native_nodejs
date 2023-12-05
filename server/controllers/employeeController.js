@@ -1,10 +1,8 @@
-const Attendance = require("../models/attendance");
-const Employee = require("./models/Employee");
+import Employee from "../models/Employee.js";
+
 
 // create a new Employee
-
-module.exports = {
-  createEmployee: async (req, res) => {
+ export const createEmployee =  async (req, res) => {
     const newEmployee = new Employee(req.body);
     try {
       await newEmployee.save();
@@ -18,16 +16,20 @@ module.exports = {
       console.log("Error creating employee", error);
       res.status(500).json({ message: "Failed to add an employee" });
     }
-  },
-  getAllEmployees: async (req, res) => {
+  };
+
+  // get employees
+  export const  getAllEmployees = async(req, res) => {
     try {
       const employees = await Employee.find();
       res.status(200).json({ employees });
     } catch (error) {
       res.status(500).json({ message: "Failed to retrieve the employees" });
     }
-  },
-  postAttendance: async (req, res) => {
+  };
+
+  // post attendance
+  export const postAttendance = async(req, res) => {
     try {
       const existingAttendance = await Attendance.findOne({ employeeId, date });
       if (existingAttendance) {
@@ -47,5 +49,5 @@ module.exports = {
     } catch (error) {
       res.status(500).json({ message: "Error submitting attendance" });
     }
-  },
-};
+  };
+
